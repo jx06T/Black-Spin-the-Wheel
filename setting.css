@@ -1,0 +1,140 @@
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 280px;
+    width: 220px
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 64px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 48px;
+    width: 48px;
+    left: 10px;
+    bottom: 8px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #8e8e8f;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #8e8e8f;
+}
+
+input:checked+.slider:before {
+    /* -webkit-transform: translateX(26px); */
+    -webkit-transform: translateX(52px);
+    /* -ms-transform: translateX(26px); */
+    -ms-transform: translateX(52px);
+    /* transform: translateX(26px); */
+    transform: translateX(52px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+
+#cre .slider-container {
+    margin-top: 20px;
+}
+
+.slider-container input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.slider-container button {
+    margin: 0 auto;
+}
+
+.slider-containerr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-containerr label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: -1px;
+    margin-top: 2px;
+}
+
+.slider-containerr hr {
+    margin-top: 5px;
+}
+
+
+
+/* --------------------------------- */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 999;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 0.8s linear infinite;
+    margin: auto;
+    top: 40%;
+    position: relative;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

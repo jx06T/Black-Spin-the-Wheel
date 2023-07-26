@@ -1,0 +1,12 @@
+.dafs {
+    display: flex;
+    flex-direction: row;
+}
+
+.dafs>div {
+    margin: 20px;
+}
+#state{
+    margin-top: 40px;
+    margin-left: 60px;
+}
