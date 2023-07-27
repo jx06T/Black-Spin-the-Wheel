@@ -48,7 +48,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             }
             Allpeople.push(person.innerText)
         })
-        console.log(Allpeople)
+        // console.log(Allpeople)
         count = Allpeople.length
         Apiece = 360 / count
     }
@@ -86,12 +86,12 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             name = Allpeople[Math.floor(Math.random() * count)]
         }
         let cid = Allpeople.indexOf(name)
-        id = (count - cid - 1) * Apiece + Math.random() * Apiece + (18/count)
+        id = (count - cid - 1) * Apiece + Math.random() * Apiece + (18 / count)
         let NowD = roulette.style.transform
         const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
         NowD = parseFloat(parts);
         roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
-        console.log(cid, id, name)
+        // console.log(cid, id, name)
         setTimeout(() => {
             banner.innerHTML = GetTitle(name)
             banner.style.background = GetColor(cid)
