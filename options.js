@@ -59,24 +59,28 @@ Idddd.addEventListener("change", () => {
     chrome.storage.local.set({ "idddd": Idddd.value })
 })
 
-setInterval(() => {
-    GetState()
-}, 1000);
+
 GetState()
 initAll()
-
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.type === "UUU") {
+        GetState()
+        initAll()
+    }
+});
 ShowState.addEventListener("click", () => {
-    let neww = ShowState.innerText == "T" ? "NF" : "NT"
-    ShowState.innerText = neww[1]
+    let neww = ShowState.innerText == "T" ? "F" : "T"
+    ShowState.innerText = neww
     chrome.storage.local.set({ "state": neww })
+    fetch(URL + `?idddd=${Idddd.value}&state=${neww}`, requestOptions)
 })
-const URL = "https://script.google.com/macros/s/AKfycbwnIcFUuGg8dZUXaWvutDDEaOjux1B57Jmf08LYj-IR6K73Ck6E2TLKl8-Eo-m2wBLByw/exec"
+const URL = "https://script.google.com/macros/s/AKfycby7xj42v0yHY1cpELXwpWDZfqJS74EuThg23P8FljNImBQiYhpYfpUfCxLnxV62Qru8Sw/exec"
 const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
 function sentt() {
-    fetch(URL + `?idddd=${Idddd.value}&type=U&name=${Allname.value.split("\n").join("^")}&percent=${percent.value.split("\n").join("^")}`, requestOptions)
+    fetch(URL + `?idddd=${Idddd.value}&type=V&name=${Allname.value.split("\n").join("^")}&percent=${percent.value.split("\n").join("^")}`, requestOptions)
         .then(response => response.json())
         .then(result => {
         })
