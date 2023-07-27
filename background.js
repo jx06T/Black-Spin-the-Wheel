@@ -15,8 +15,12 @@ chrome.storage.onChanged.addListener(function (changes, areaName) {
 
     }
 });
-
-setInterval(() => {
+let lastTime = Date.now()
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+    if (Date.now() - lastTime < 1000) {
+        return
+    }
+    lastTime = Date.now()
     fetch(URL + `?idddd=${idddd}`, requestOptions)
         .then(response => response.json())
         .then(result => {
@@ -28,5 +32,4 @@ setInterval(() => {
             }
         })
         .catch(error => console.log('error', error));
-}, 2000);
-
+});
