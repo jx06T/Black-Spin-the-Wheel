@@ -13,16 +13,29 @@
         <div class="spinner"></div>
     </div>
 
-    <div id="content" style="display:none;">
+    <div class="dafs">
+        <div id="Information">
+            <h1>資訊</h1>
+            <input type="text" id="choose">
+            <div class="dafs btn">
+                <button id="getD">get</button>
+                <button id="changeD">change</button>
+                <label class="switch">
+                    <input type="checkbox" data-Myclass="sleeping" id="switch">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="small">
+            <h1>標籤</h1>
+            <textarea name="name" id="name" cols="40" rows="30"></textarea>
+        </div>
+        <div class="small">
+            <h1>機率</h1>
+            <textarea name="percent" id="percent" cols="40" rows="30"></textarea>
+        </div>
     </div>
-
-    
-    <label class="switch">
-        <input type="checkbox" data-Myclass="sleeping" id="switch">
-        <span class="slider round"></span>
-    </label>
     <script src="setting.js"></script>
-
 </body>
 
 </html>

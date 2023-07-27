@@ -1,3 +1,4 @@
+const IDDDD = "T1"
 const Allname = document.querySelector("#name")
 // console.log(Allname)
 Allname.addEventListener("change", () => {
@@ -32,6 +33,7 @@ function initAll() {
 
 }
 const ShowState = document.querySelector("#state")
+const Idddd = document.querySelector("#idddd")
 function GetState() {
     chrome.storage.local.get("state").then((a) => {
         if (!a.state) {
@@ -42,12 +44,33 @@ function GetState() {
         ShowState.innerText = a.state
     })
 }
+chrome.storage.local.get("idddd").then((a) => {
+    console.log(a)
+    if (!a.idddd) {
+        chrome.storage.local.set({ "idddd": IDDDD })
+        Idddd.value = IDDDD
+        return
+    }
+    Idddd.value = a.idddd
+})
+
+Idddd.addEventListener("change", () => {
+    chrome.storage.local.set({ "idddd": Idddd.value })
+})
+
 setInterval(() => {
     GetState()
 }, 1000);
 GetState()
 initAll()
+const URL = "https://script.google.com/macros/s/AKfycbx1oXfoIls9ue0_y_ClzN3bVdoru9AIBdV6vVKvOYZsibx_n2Yj39Yce7KoUDM5fOMgKQ/exec"
+let requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+};
 ShowState.addEventListener("click", () => {
-    initAll()
-    GetState()
+    let neww = ShowState.innerText == "T" ? "F" : "T"
+    fetch(URL + "?data=" + neww, requestOptions)
+    ShowState.innerText = neww
+    chrome.storage.local.set({ "state": neww })
 })

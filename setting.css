@@ -1,16 +1,8 @@
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 280px;
-    width: 220px
-}
-
 .switch {
     position: relative;
     display: inline-block;
-    width: 120px;
-    height: 64px;
+    width: 60px;
+    height: 32px;
 }
 
 .switch input {
@@ -34,10 +26,10 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: 48px;
-    width: 48px;
-    left: 10px;
-    bottom: 8px;
+    height: 24px;
+    width: 24px;
+    left: 5px;
+    bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -52,12 +44,9 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-    /* -webkit-transform: translateX(26px); */
-    -webkit-transform: translateX(52px);
-    /* -ms-transform: translateX(26px); */
-    -ms-transform: translateX(52px);
-    /* transform: translateX(26px); */
-    transform: translateX(52px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 .slider.round {
@@ -137,4 +126,65 @@ input:checked+.slider:before {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* --------------------------------------- */
+.dafs {
+    display: flex;
+    flex-direction: row;
+}
+
+#state {
+    margin-top: 40px;
+    margin-left: 60px;
+}
+
+
+@media (min-width: 901px) {
+    .dafs>div {
+        width: 350px;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    #Information {
+        margin-left: 10px;
+        ;
+    }
+
+    textarea {
+        width: 160px;
+        height: 300px;
+    }
+
+    .small {
+        margin: 10px;
+        margin-top: 20px;
+
+    }
+
+    .dafs {
+        flex-wrap: wrap;
+    }
+}
+
+#Information {
+    width: 300px;
+}
+
+#Information>* {
+    margin-bottom: 20px;
+    width: 260px;
+}
+
+div.btn>* {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #000000;
+}
+
+button {
+    border-radius: 50px;
+    width: 60px;
 }
