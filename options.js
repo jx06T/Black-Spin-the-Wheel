@@ -1,15 +1,16 @@
 const IDDDD = "T1"
 const Allname = document.querySelector("#name")
-// console.log(Allname)
 Allname.addEventListener("change", () => {
     let v = Allname.value
     chrome.storage.local.set({ Allname: v })
+    sentt()
 })
 
 const percent = document.querySelector("#percent")
 percent.addEventListener("change", () => {
     let v = percent.value
     chrome.storage.local.set({ percent: v })
+    sentt()
 })
 // console.log(percent)
 function initAll() {
@@ -63,14 +64,21 @@ setInterval(() => {
 }, 1000);
 GetState()
 initAll()
-const URL = "https://script.google.com/macros/s/AKfycbx1oXfoIls9ue0_y_ClzN3bVdoru9AIBdV6vVKvOYZsibx_n2Yj39Yce7KoUDM5fOMgKQ/exec"
-let requestOptions = {
+
+ShowState.addEventListener("click", () => {
+    let neww = ShowState.innerText == "T" ? "NF" : "NT"
+    ShowState.innerText = neww[1]
+    chrome.storage.local.set({ "state": neww })
+})
+const URL = "https://script.google.com/macros/s/AKfycbwnIcFUuGg8dZUXaWvutDDEaOjux1B57Jmf08LYj-IR6K73Ck6E2TLKl8-Eo-m2wBLByw/exec"
+const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-ShowState.addEventListener("click", () => {
-    let neww = ShowState.innerText == "T" ? "F" : "T"
-    fetch(URL + "?data=" + neww, requestOptions)
-    ShowState.innerText = neww
-    chrome.storage.local.set({ "state": neww })
-})
+function sentt() {
+    fetch(URL + `?idddd=${Idddd.value}&type=U&name=${Allname.value.split("\n").join("^")}&percent=${percent.value.split("\n").join("^")}`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+        })
+        .catch(error => console.log('error', error));
+}
