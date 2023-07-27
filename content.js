@@ -1,13 +1,16 @@
+let Allpeople = []
+let count = undefined
+let isRun = false
+let Apiece = undefined
+const colors = ["royalblue", "salmon", "palegreen", "wheat", 'plum']
 if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     let STATA = true
+
     function GetState() {
         chrome.storage.local.get("state").then((a) => {
             STATA = a.state == "T"
         })
     }
-    setInterval(() => {
-        GetState()
-    }, 1000);
 
 
     const roulette = document.querySelector("#wheel")
@@ -15,6 +18,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     const peopleDiv = document.querySelector("#names-show")
     const peopleDDiv = document.querySelector("#names")
     const banner = document.querySelector("#banner")
+    const button0 = document.querySelectorAll(".btn-primary.spin-btn")[0]
     const button = document.querySelectorAll(".btn-primary.spin-btn")[1]
     let button2 = document.querySelector("#hide-result-wrapper>button")
 
@@ -34,16 +38,17 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         })
     }
     init()
-    let Allpeople = []
-    let count = undefined
-    let Apiece = undefined
 
     function ChangePeople() {
         Allpeople = []
         const people = Array.from(peopleDiv.childNodes);
         people.forEach((person) => {
+            if (person.innerText == '' || person.innerText == '　') {
+                return
+            }
             Allpeople.push(person.innerText)
         })
+        console.log(Allpeople)
         count = Allpeople.length
         Apiece = 360 / count
     }
@@ -55,9 +60,13 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     })
 
     function run() {
+        if (isRun) {
+            return
+        }
         if (!STATA) {
             return
         }
+        isRun = true
         let total = 0
         let Chart = []
         for (let i = 0; i < Percent.length; i++) {
@@ -76,16 +85,18 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         if (Allpeople.indexOf(name) == -1) {
             name = Allpeople[Math.floor(Math.random() * count)]
         }
-
-        let id = Allpeople.indexOf(name)
-        id = (count - id - 1) * Apiece + Math.random() * Apiece
+        let cid = Allpeople.indexOf(name)
+        id = (count - cid - 1) * Apiece + Math.random() * Apiece + (18/count)
         let NowD = roulette.style.transform
         const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
         NowD = parseFloat(parts);
         roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
+        console.log(cid, id, name)
         setTimeout(() => {
             banner.innerHTML = GetTitle(name)
+            banner.style.background = GetColor(cid)
             button2.innerText = "隱藏 " + name
+            isRun = false
         }, 10000)
     }
 
@@ -110,7 +121,9 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     button.addEventListener("click", () => {
         run()
     })
-
+    button0.addEventListener("click", () => {
+        run()
+    })
 
     const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
     const requestOptions = {
@@ -128,7 +141,6 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             }
         }
     });
-
     setInterval(() => {
         fetch(URL + `?idddd=${idddd}`, requestOptions)
             .then(response => response.json())
@@ -138,11 +150,21 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
                     chrome.storage.local.set({ "Allname": result.All.name.join("\n") })
                     chrome.storage.local.set({ "percent": result.All.percent.join("\n") })
                     fetch(URL + `?idddd=${idddd}&type=C`, requestOptions)
+                    init()
                 }
             })
             .catch(error => console.log('error', error));
+        GetState()
+
     }, 2000);
 
 }
 
 
+function GetColor(i) {
+    if (i > count - (count % 5) && (count % 5 == 1 || count % 5 == 2)) {
+        return colors[(i % 5) + 2]
+    } else {
+        return colors[i % 5]
+    }
+}
