@@ -2,7 +2,7 @@ const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-const URL = "https://script.google.com/macros/s/AKfycby7xj42v0yHY1cpELXwpWDZfqJS74EuThg23P8FljNImBQiYhpYfpUfCxLnxV62Qru8Sw/exec"
+const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
 
 function send(idddd, msg) {
     fetch(URL + `?idddd=${idddd}&state=${msg}`, requestOptions)

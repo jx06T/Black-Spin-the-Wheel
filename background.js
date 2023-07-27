@@ -1,4 +1,4 @@
-const URL = "https://script.google.com/macros/s/AKfycby7xj42v0yHY1cpELXwpWDZfqJS74EuThg23P8FljNImBQiYhpYfpUfCxLnxV62Qru8Sw/exec"
+const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
 const requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -25,11 +25,8 @@ setInterval(() => {
                 chrome.storage.local.set({ "Allname": result.All.name.join("\n") })
                 chrome.storage.local.set({ "percent": result.All.percent.join("\n") })
                 fetch(URL + `?idddd=${idddd}&type=C`, requestOptions)
-                chrome.runtime.sendMessage({
-                    type: "UUU",
-                });
             }
         })
         .catch(error => console.log('error', error));
-}, 1000);
+}, 2000);
 

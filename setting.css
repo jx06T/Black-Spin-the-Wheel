@@ -152,7 +152,8 @@ input:checked+.slider:before {
         display: flex;
         flex-direction: row;
     }
-    #Information>h1{
+
+    #Information>h1 {
         margin-top: 46px;
     }
 }
@@ -186,6 +187,11 @@ input:checked+.slider:before {
 
 #Information {
     width: 300px;
+}
+
+textarea {
+    font-size: 16px;
+    line-height: 18px;
 }
 
 #Information>* {

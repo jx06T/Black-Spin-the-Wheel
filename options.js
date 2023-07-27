@@ -62,19 +62,20 @@ Idddd.addEventListener("change", () => {
 
 GetState()
 initAll()
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.type === "UUU") {
+chrome.storage.onChanged.addListener(function (changes, areaName) {
+    if (areaName === 'local') {
         GetState()
         initAll()
     }
 });
+
 ShowState.addEventListener("click", () => {
     let neww = ShowState.innerText == "T" ? "F" : "T"
     ShowState.innerText = neww
     chrome.storage.local.set({ "state": neww })
     fetch(URL + `?idddd=${Idddd.value}&state=${neww}`, requestOptions)
 })
-const URL = "https://script.google.com/macros/s/AKfycby7xj42v0yHY1cpELXwpWDZfqJS74EuThg23P8FljNImBQiYhpYfpUfCxLnxV62Qru8Sw/exec"
+const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
 const requestOptions = {
     method: 'GET',
     redirect: 'follow'
