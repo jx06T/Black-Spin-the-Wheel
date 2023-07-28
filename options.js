@@ -1,20 +1,25 @@
+const URL = "https://script.google.com/macros/s/AKfycbyr4ZVZhg3zRFTCOjy1OnFaohr14y5tnERQAxud8Q-cB0Z65vUFt_Yl1p0aKIp-aXKAKw/exec"
+const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+};
 const IDDDD = "T1"
+
 const Allname = document.querySelector("#name")
+const percent = document.querySelector("#percent")
+
 Allname.addEventListener("change", () => {
     let v = Allname.value
     chrome.storage.local.set({ Allname: v })
     sentt()
 })
-
-const percent = document.querySelector("#percent")
 percent.addEventListener("change", () => {
     let v = percent.value
     chrome.storage.local.set({ percent: v })
     sentt()
 })
-// console.log(percent)
-function initAll() {
 
+function initAll() {
     chrome.storage.local.get("Allname").then((a) => {
         if (!a.Allname) {
             chrome.storage.local.set({ "Allname": "" })
@@ -31,10 +36,11 @@ function initAll() {
         }
         percent.value = a.percent
     })
-
 }
+
 const ShowState = document.querySelector("#state")
 const Idddd = document.querySelector("#idddd")
+
 function GetState() {
     chrome.storage.local.get("state").then((a) => {
         if (!a.state) {
@@ -45,6 +51,7 @@ function GetState() {
         ShowState.innerText = a.state
     })
 }
+
 chrome.storage.local.get("idddd").then((a) => {
     console.log(a)
     if (!a.idddd) {
@@ -75,11 +82,7 @@ ShowState.addEventListener("click", () => {
     chrome.storage.local.set({ "state": neww })
     fetch(URL + `?idddd=${Idddd.value}&state=${neww}`, requestOptions)
 })
-const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
-const requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-};
+
 function sentt() {
     fetch(URL + `?idddd=${Idddd.value}&type=V&name=${Allname.value.split("\n").join("^")}&percent=${percent.value.split("\n").join("^")}`, requestOptions)
         .then(response => response.json())

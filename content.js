@@ -1,16 +1,18 @@
+const URL = "https://script.google.com/macros/s/AKfycbyr4ZVZhg3zRFTCOjy1OnFaohr14y5tnERQAxud8Q-cB0Z65vUFt_Yl1p0aKIp-aXKAKw/exec"
+const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+};
 let Allpeople = []
 let count = undefined
 let isRun = false
+let STATA = true
 let Apiece = undefined
 const colors = ["royalblue", "salmon", "palegreen", "wheat", 'plum']
+let All_NAME = undefined
+let Percent = undefined
+let idddd
 if (location.href == 'https://tw.piliapp.com/random/wheel/') {
-    let STATA = true
-
-    function GetState() {
-        chrome.storage.local.get("state").then((a) => {
-            STATA = a.state == "T"
-        })
-    }
 
 
     const roulette = document.querySelector("#wheel")
@@ -27,8 +29,20 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         return title
     }
 
-    let All_NAME = undefined
-    let Percent = undefined
+    function GetState() {
+        chrome.storage.local.get("state").then((a) => {
+            STATA = a.state === "T"
+        })
+    }
+
+    function GetColor(i) {
+        if (i > count - (count % 5) && (count % 5 == 1 || count % 5 == 2)) {
+            return colors[(i % 5) + 2]
+        } else {
+            return colors[i % 5]
+        }
+    }
+
     function init() {
         chrome.storage.local.get("Allname").then((a) => {
             All_NAME = a.Allname.split("\n")
@@ -37,7 +51,6 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             Percent = a.percent.split("\n")
         })
     }
-    init()
 
     function ChangePeople() {
         Allpeople = []
@@ -53,11 +66,6 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         Apiece = 360 / count
     }
 
-    ChangePeople()
-
-    peopleDDiv.addEventListener("change", () => {
-        ChangePeople()
-    })
 
     function run() {
         if (isRun) {
@@ -100,7 +108,14 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         }, 10000)
     }
 
+    ChangePeople()
+    init()
+    GetState()
 
+    //------------------------------------------------------------------------------
+    peopleDDiv.addEventListener("change", () => {
+        ChangePeople()
+    })
     window.addEventListener("focus", () => {
         init()
     })
@@ -110,7 +125,6 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             run()
         }
     }, false)
-
 
     roulette.addEventListener("click", () => {
         run()
@@ -125,12 +139,6 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         run()
     })
 
-    const URL = "https://script.google.com/macros/s/AKfycbyK621zuDNrBwrg8gaROvwNZMa57hLzEFrEG-Ma4dQiR9xJ5jXGmqK63xo0GeEsnJ4tyA/exec"
-    const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    let idddd
     chrome.storage.local.get('idddd').then((a) => {
         idddd = a.idddd
     })
@@ -139,8 +147,12 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             if (changes.idddd) {
                 idddd = changes.idddd.newValue;
             }
+            if (changes.state) {
+                STATA = changes.state.newValue === "T"
+            }
         }
     });
+
     setInterval(() => {
         fetch(URL + `?idddd=${idddd}`, requestOptions)
             .then(response => response.json())
@@ -154,17 +166,8 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
                 }
             })
             .catch(error => console.log('error', error));
-        GetState()
 
     }, 2000);
 
 }
 
-
-function GetColor(i) {
-    if (i > count - (count % 5) && (count % 5 == 1 || count % 5 == 2)) {
-        return colors[(i % 5) + 2]
-    } else {
-        return colors[i % 5]
-    }
-}
