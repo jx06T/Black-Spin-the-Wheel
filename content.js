@@ -59,7 +59,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             if (person.innerText == '' || person.innerText == '　') {
                 return
             }
-            Allpeople.push(person.innerText)
+            Allpeople.push(person.innerText.trimEnd())
         })
         // console.log(Allpeople)
         count = Allpeople.length
@@ -77,9 +77,15 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         isRun = true
         let total = 0
         let Chart = []
+        let No = []
         for (let i = 0; i < Percent.length; i++) {
             const person = Percent[i];
-            total += parseInt(person) == NaN ? 0 : parseInt(person)
+            if (isNaN(parseInt(person))) {
+                total += 0
+                No.push(All_NAME[i])
+            } else {
+                total += parseInt(person)
+            }
             Chart.push(total)
         }
         let name
@@ -91,14 +97,22 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             }
         }
         if (Allpeople.indexOf(name) == -1) {
-            name = Allpeople[Math.floor(Math.random() * count)]
+            let TempAllpeople = []
+            for (let i = 0; i < Allpeople.length; i++) {
+                if (No.indexOf(Allpeople[i]) == -1) {
+                    TempAllpeople.push(Allpeople[i])
+                }
+            }
+            name = TempAllpeople[Math.floor(Math.random() * TempAllpeople.length)]
+            if (!name) {
+                name = Allpeople[Math.floor(Math.random() * count)]
+            }
         }
         let cid = Allpeople.indexOf(name)
         id = (count - cid - 1) * Apiece + Math.random() * Apiece + (18 / count)
         let NowD = roulette.style.transform
         const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
         NowD = parseFloat(parts);
-        console.log(id, cid, NowD)
         setTimeout(() => {
             roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
         }, 5)
@@ -118,9 +132,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     peopleDDiv.addEventListener("change", () => {
         ChangePeople()
     })
-    window.addEventListener("focus", () => {
-        init()
-    })
+
 
     document.addEventListener("keydown", (e) => {
         if (event.target === document.body && e.keyCode == 32) {
@@ -152,6 +164,12 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             }
             if (changes.state) {
                 STATA = changes.state.newValue === "T"
+            }
+            if (changes.Allname) {
+                All_NAME = changes.Allname.newValue.split("\n")
+            }
+            if (changes.percent) {
+                Percent = changes.percent.newValue.split("\n")
             }
         }
     });
