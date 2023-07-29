@@ -84,7 +84,13 @@ ShowState.addEventListener("click", () => {
 })
 
 function sentt() {
-    fetch(URL + `?idddd=${Idddd.value}&type=V&name=${Allname.value.split("\n").join("^")}&percent=${percent.value.split("\n").join("^")}`, requestOptions)
+    let n = Allname.value.split("\n")
+    let p = percent.value.split("\n")
+    let l = p.length
+    for (let i = 0; i < n.length - l; i++) {
+        p.push("")
+    }
+    fetch(URL + `?idddd=${Idddd.value}&type=V&name=${n.join("^")}&percent=${p.join("^")}`, requestOptions)
         .then(response => response.json())
         .then(result => {
         })
