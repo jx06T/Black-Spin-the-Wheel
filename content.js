@@ -98,8 +98,10 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         let NowD = roulette.style.transform
         const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
         NowD = parseFloat(parts);
-        roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
-        // console.log(cid, id, name)
+        console.log(id, cid, NowD)
+        setTimeout(() => {
+            roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
+        }, 5)
         setTimeout(() => {
             banner.innerHTML = GetTitle(name)
             banner.style.background = GetColor(cid)
@@ -123,6 +125,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     document.addEventListener("keydown", (e) => {
         if (event.target === document.body && e.keyCode == 32) {
             run()
+            console.log("dDD")
         }
     }, false)
 
