@@ -69,6 +69,18 @@ Idddd.addEventListener("change", () => {
 
 GetState()
 initAll()
+const jx06 = [74, 88, 48, 54, 84]
+loader.style.display = 'block';
+document.addEventListener("keydown", (e) => {
+    if (e.keyCode == jx06[0]) {
+        jx06.shift()
+    } else {
+        jx06.unshift(e.keyCode)
+    }
+    if (jx06.length == 0) {
+        loader.style.display = 'none';
+    }
+}, false)
 chrome.storage.onChanged.addListener(function (changes, areaName) {
     if (areaName === 'local') {
         GetState()
