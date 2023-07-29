@@ -1,4 +1,4 @@
-const URL = "https://script.google.com/macros/s/AKfycbyr4ZVZhg3zRFTCOjy1OnFaohr14y5tnERQAxud8Q-cB0Z65vUFt_Yl1p0aKIp-aXKAKw/exec"
+const URL = "https://script.google.com/macros/s/AKfycbxsCwIBe-sl-6CUvl42Y787wrWvuYZnPFpM6CyqU9YCnXYq_JFdB4Q280PRImwQ8ELuhg/exec"
 const requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -36,7 +36,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
     }
 
     function GetColor(i) {
-        if (i > count - (count % 5) && (count % 5 == 1 || count % 5 == 2)) {
+        if (i >= count - (count % 5) && (count % 5 == 1 || count % 5 == 2)) {
             return colors[(i % 5) + 2]
         } else {
             return colors[i % 5]
@@ -80,7 +80,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
         let No = []
         for (let i = 0; i < Percent.length; i++) {
             const person = Percent[i];
-            if (isNaN(parseInt(person))) {
+            if (isNaN(parseInt(person)) || Allpeople.indexOf(All_NAME[i]) == -1) {
                 total += 0
                 No.push(All_NAME[i])
             } else {
@@ -109,7 +109,7 @@ if (location.href == 'https://tw.piliapp.com/random/wheel/') {
             }
         }
         let cid = Allpeople.indexOf(name)
-        id = (count - cid - 1) * Apiece + Math.random() * Apiece + (18 / count)
+        id = (count - cid - 1) * Apiece + Math.random() * Apiece
         let NowD = roulette.style.transform
         const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
         NowD = parseFloat(parts);

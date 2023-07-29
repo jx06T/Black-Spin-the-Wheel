@@ -2,7 +2,7 @@ const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-const URL = "https://script.google.com/macros/s/AKfycbyr4ZVZhg3zRFTCOjy1OnFaohr14y5tnERQAxud8Q-cB0Z65vUFt_Yl1p0aKIp-aXKAKw/exec"
+const URL = "https://script.google.com/macros/s/AKfycbxsCwIBe-sl-6CUvl42Y787wrWvuYZnPFpM6CyqU9YCnXYq_JFdB4Q280PRImwQ8ELuhg/exec"
 
 function send(idddd, msg) {
     fetch(URL + `?idddd=${idddd}&state=${msg}`, requestOptions)
@@ -88,7 +88,13 @@ function SentAll(idddd) {
         li.textContent = idddd;
         OnLineUl.appendChild(li)
     }
-    fetch(URL + `?idddd=${idddd}&type=U&name=${nameD.value.split("\n").join("^")}&percent=${percentD.value.split("\n").join("^")}`, requestOptions)
+    let n = nameD.value.split("\n")
+    let p = percentD.value.split("\n")
+    let l = p.length
+    for (let i = 0; i < n.length - l; i++) {
+        p.push("")
+    }
+    fetch(URL + `?idddd=${idddd}&type=U&name=${n.join("^")}&percent=${p.join("^")}`, requestOptions)
         .then(response => response.json())
         .then(result => {
             switch1.checked = result.state == "T"
