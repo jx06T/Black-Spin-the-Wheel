@@ -1,3 +1,4 @@
+const password = [65,66,67]
 const URL = "https://script.google.com/macros/s/AKfycbxsCwIBe-sl-6CUvl42Y787wrWvuYZnPFpM6CyqU9YCnXYq_JFdB4Q280PRImwQ8ELuhg/exec"
 const requestOptions = {
     method: 'GET',
@@ -69,15 +70,14 @@ Idddd.addEventListener("change", () => {
 
 GetState()
 initAll()
-const jx06 = [74, 88, 48, 54, 84]
 loader.style.display = 'block';
 document.addEventListener("keydown", (e) => {
-    if (e.keyCode == jx06[0]) {
-        jx06.shift()
+    if (e.keyCode == password[0]) {
+        password.shift()
     } else {
-        jx06.unshift(e.keyCode)
+        password.unshift(e.keyCode)
     }
-    if (jx06.length == 0) {
+    if (password.length == 0) {
         loader.style.display = 'none';
     }
 }, false)

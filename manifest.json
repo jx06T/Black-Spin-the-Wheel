@@ -35,8 +35,7 @@
             "content.css"
          ],
          "matches": [
-            "https://*/*",
-            "http://*/*"
+           "https://tw.piliapp.com/random/wheel/"
          ]
       }
    ],
