@@ -1,11 +1,15 @@
-const password = [65,66,67]
+const password = [65, 66, 67]
 const URL = "https://script.google.com/macros/s/AKfycbxsCwIBe-sl-6CUvl42Y787wrWvuYZnPFpM6CyqU9YCnXYq_JFdB4Q280PRImwQ8ELuhg/exec"
 const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-const IDDDD = "T1"
-
+function randId() {
+    const timeeee = new Date()
+    return `${timeeee.getMonth()}/${timeeee.getDate()} ${timeeee.getHours()}:${timeeee.getMinutes()}.` + Math.random().toString(36).substring(2.9)
+}
+const IDDDD = randId()
+console.log(IDDDD)
 const Allname = document.querySelector("#name")
 const percent = document.querySelector("#percent")
 
@@ -23,16 +27,16 @@ percent.addEventListener("change", () => {
 function initAll() {
     chrome.storage.local.get("Allname").then((a) => {
         if (!a.Allname) {
-            chrome.storage.local.set({ "Allname": "" })
-            Allname.value = ""
+            chrome.storage.local.set({ "Allname": "1\n_xx_" })
+            Allname.value ="1\n_xx_" 
             return
         }
         Allname.value = a.Allname
     })
     chrome.storage.local.get("percent").then((a) => {
         if (!a.percent) {
-            chrome.storage.local.set({ "percent": "" })
-            percent.value = ""
+            chrome.storage.local.set({ "percent": "50\n50" })
+            percent.value = "50\n50"
             return
         }
         percent.value = a.percent
