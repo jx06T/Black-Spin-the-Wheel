@@ -107,6 +107,9 @@ function SentAll(idddd) {
 OnLineUl.addEventListener('click', (event) => {
     const clickedElement = event.target;
     Idddd = clickedElement.textContent
+    if (!Idddd) {
+        return
+    }
     choose.value = Idddd
     loader.style.display = 'block';
     GetAll(Idddd)

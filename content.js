@@ -75,6 +75,7 @@ function ChangePeople() {
 
 
 function run() {
+    console.log(isRun, STATA)
     if (isRun) {
         return
     }
@@ -122,13 +123,15 @@ function run() {
     let NowD = roulette.style.transform
     const parts = NowD.split("(")[1].split(")")[0].split("deg")[0].trim();
     NowD = parseFloat(parts);
+    const temp = name
     setTimeout(() => {
         roulette.style.transform = `rotate(${Math.floor(NowD / 360) * 360 + 1800 + id}deg)`
     }, 5)
+
     setTimeout(() => {
-        banner.innerHTML = GetTitle(name)
+        banner.innerHTML = GetTitle(temp)
         banner.style.background = GetColor(cid)
-        button2.innerText = "隱藏 " + name
+        button2.innerText = "隱藏 " + temp
         isRun = false
     }, 10000)
 }
@@ -191,6 +194,7 @@ chrome.storage.onChanged.addListener(function (changes, areaName) {
         if (changes.percent) {
             Percent = changes.percent.newValue.split("\n")
         }
+        // console.log(All_NAME, Percent)
     }
 });
 

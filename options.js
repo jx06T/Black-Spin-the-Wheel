@@ -4,12 +4,7 @@ const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-function randId() {
-    const timeeee = new Date()
-    return `${timeeee.getMonth()}/${timeeee.getDate()} ${timeeee.getHours()}:${timeeee.getMinutes()}.` + Math.random().toString(36).substring(2.9)
-}
-const IDDDD = randId()
-console.log(IDDDD)
+
 const Allname = document.querySelector("#name")
 const percent = document.querySelector("#percent")
 
@@ -26,19 +21,9 @@ percent.addEventListener("change", () => {
 
 function initAll() {
     chrome.storage.local.get("Allname").then((a) => {
-        if (!a.Allname) {
-            chrome.storage.local.set({ "Allname": "1\n_xx_" })
-            Allname.value ="1\n_xx_" 
-            return
-        }
         Allname.value = a.Allname
     })
     chrome.storage.local.get("percent").then((a) => {
-        if (!a.percent) {
-            chrome.storage.local.set({ "percent": "50\n50" })
-            percent.value = "50\n50"
-            return
-        }
         percent.value = a.percent
     })
 }
@@ -48,22 +33,11 @@ const Idddd = document.querySelector("#idddd")
 
 function GetState() {
     chrome.storage.local.get("state").then((a) => {
-        if (!a.state) {
-            chrome.storage.local.set({ "state": "T" })
-            ShowState.innerText = ""
-            return
-        }
         ShowState.innerText = a.state
     })
 }
 
 chrome.storage.local.get("idddd").then((a) => {
-    console.log(a)
-    if (!a.idddd) {
-        chrome.storage.local.set({ "idddd": IDDDD })
-        Idddd.value = IDDDD
-        return
-    }
     Idddd.value = a.idddd
 })
 
