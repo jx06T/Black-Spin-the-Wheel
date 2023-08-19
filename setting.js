@@ -107,7 +107,8 @@ function SentAll(idddd) {
 OnLineUl.addEventListener('click', (event) => {
     const clickedElement = event.target;
     Idddd = clickedElement.textContent
-    if (!Idddd) {
+    // console.log(clickedElement)
+    if (!clickedElement.matches("li")) {
         return
     }
     choose.value = Idddd
